@@ -244,19 +244,22 @@ $require_telemetry_files = [
 	__DIR__ . '/telemetry/tracks/class-tracks-event-dto.php',
 	__DIR__ . '/telemetry/tracks/class-tracks-event.php',
 	__DIR__ . '/telemetry/tracks/class-tracks-client.php',
+	__DIR__ . '/telemetry/tracks/tracks-utils.php',
 ];
 
 // If there is a missing file, the loop will break and the telemetry files will not be loaded at all
 do {
 	foreach ( $require_telemetry_files as $file ) {
 		if ( ! file_exists( $file ) ) {
-			break;
+			break 2;
 		}
 	}
 	foreach ( $require_telemetry_files as $file ) {
 			require_once $file;
 	}
 } while ( false );
+
+unset( $require_telemetry_files );
 
 add_action( 'init', [ WPComVIP_Restrictions::class, 'instance' ] );
 
