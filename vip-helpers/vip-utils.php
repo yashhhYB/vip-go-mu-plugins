@@ -10,6 +10,26 @@ require_once __DIR__ . '/class-jetpack-ip-manager.php';
 
 Jetpack_IP_Manager::instance();
 
+
+ @package vip-go-mu-plugins
+ */
+
+/**
+ * Check if the current request expects a JSON response.
+ *
+ * @return bool
+ */
+function vip_is_json_request() {
+	if (
+		( defined( 'DOING_AJAX' ) && DOING_AJAX ) ||
+		( defined( 'REST_REQUEST' ) && REST_REQUEST ) ||
+		( isset( $_SERVER['HTTP_ACCEPT'] ) && false !== strpos( $_SERVER['HTTP_ACCEPT'], 'application/json' ) )
+	) {
+		return true;
+	}
+
+	return false;
+}
 /**
  * Utility function to trigger a callback on a hook with priority or execute immediately if the hook has already been fired previously.
  *
